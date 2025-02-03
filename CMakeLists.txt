@@ -35,7 +35,7 @@ pico_sdk_init()
 
 # Add executable. Default name is the project name, version 0.1
 
-add_executable(embarcatech-final embarcatech-final.c )
+add_executable(embarcatech-final embarcatech-final.c inc/ssd1306_i2c.c )
 
 pico_set_program_name(embarcatech-final "embarcatech-final")
 pico_set_program_version(embarcatech-final "0.1")
@@ -57,11 +57,11 @@ target_include_directories(embarcatech-final PRIVATE
 )
 
 # Add any user requested libraries
-target_link_libraries(embarcatech-final 
+target_link_libraries(embarcatech-final
         hardware_spi
         hardware_i2c
         hardware_pio
-        
+
         )
 
 pico_add_extra_outputs(embarcatech-final)
