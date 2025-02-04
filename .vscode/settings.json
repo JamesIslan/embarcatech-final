@@ -44,5 +44,9 @@
         "**/.DS_Store": true,
         "**/Thumbs.db": true
     },
-    "hide-files.files": []
+    "hide-files.files": [],
+    "files.associations": {
+        "constants.h": "c",
+        "string.h": "c"
+    }
 }
