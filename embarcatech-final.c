@@ -19,12 +19,12 @@ void run_peripherals_setup() {
   stdio_init_all();
 
   // START AND CONFIGURE LEDS
-  // gpio_init(LED_R_PIN);
-  // gpio_set_dir(LED_R_PIN, GPIO_OUT);
-  // gpio_init(LED_G_PIN);
-  // gpio_set_dir(LED_G_PIN, GPIO_OUT);
-  // gpio_init(LED_B_PIN);
-  // gpio_set_dir(LED_B_PIN, GPIO_OUT);
+  gpio_init(LED_R_PIN);
+  gpio_set_dir(LED_R_PIN, GPIO_OUT);
+  gpio_init(LED_G_PIN);
+  gpio_set_dir(LED_G_PIN, GPIO_OUT);
+  gpio_init(LED_B_PIN);
+  gpio_set_dir(LED_B_PIN, GPIO_OUT);
 
   // START AND CONFIGURE DISPLAY
   i2c_init(i2c1, ssd1306_i2c_clock * 1000);
