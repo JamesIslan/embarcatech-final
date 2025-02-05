@@ -35,6 +35,12 @@ void run_peripherals_setup() {
   ssd1306_init();
 }
 
+void reset_display(struct render_area frame_area) {
+  uint8_t ssd[ssd1306_buffer_length];
+  memset(ssd, 0, ssd1306_buffer_length);
+  render_on_display(ssd, &frame_area);
+}
+
 int main() {
   run_peripherals_setup();
   struct render_area frame_area = {
@@ -46,15 +52,18 @@ int main() {
 
   calculate_render_area_buffer_length(&frame_area);
 
-  uint8_t ssd[ssd1306_buffer_length];
-  memset(ssd, 0, ssd1306_buffer_length);
-  render_on_display(ssd, &frame_area);
+  reset_display(frame_area);
 
   ssd1306_t ssd_bm;
   ssd1306_init_bm(&ssd_bm, 128, 64, false, 0x3C, i2c1);
   ssd1306_config(&ssd_bm);
 
+  ssd1306_draw_bitmap(&ssd_bm, menu_option_first);
+  sleep_ms(1000);
+  ssd1306_draw_bitmap(&ssd_bm, menu_option_second);
+  sleep_ms(1000);
   ssd1306_draw_bitmap(&ssd_bm, menu_option_third);
+  sleep_ms(1000);
 
   while (true) {
     sleep_ms(500);
