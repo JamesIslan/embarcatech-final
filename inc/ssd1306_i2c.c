@@ -245,7 +245,7 @@ void ssd1306_send_data(ssd1306_t *ssd) {
 }
 
 // Desenha o bitmap (a ser fornecido em display_oled.c) no display
-void display_bitmap(ssd1306_t *ssd, const uint8_t *bitmap) {
+void ssd1306_draw_bitmap(ssd1306_t *ssd, const uint8_t *bitmap) {
   for (int i = 0; i < ssd->bufsize - 1; i++) {
     ssd->ram_buffer[i + 1] = bitmap[i];
 

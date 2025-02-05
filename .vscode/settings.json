@@ -47,6 +47,10 @@
     "hide-files.files": [],
     "files.associations": {
         "constants.h": "c",
-        "string.h": "c"
+        "string.h": "c",
+        "i2c.h": "c",
+        "stdio.h": "c",
+        "stdlib.h": "c",
+        "binary_info.h": "c"
     }
 }
