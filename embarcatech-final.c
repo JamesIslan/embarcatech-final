@@ -92,7 +92,7 @@ void run_peripherals_setup() {
   // gpio_set_dir(LED_B_PIN, GPIO_OUT);
 
   // START AND CONFIGURE DISPLAY
-  i2c_init(i2c1, ssd1306_i2c_clock * 9000);
+  i2c_init(i2c1, ssd1306_i2c_clock * 1000);
   gpio_set_function(I2C_SDA, GPIO_FUNC_I2C);
   gpio_set_function(I2C_SCL, GPIO_FUNC_I2C);
   gpio_pull_up(I2C_SDA);
