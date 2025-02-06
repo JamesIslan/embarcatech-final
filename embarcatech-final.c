@@ -1,7 +1,7 @@
+#include "apps/buzzer.h"
+#include "apps/pwm_led.h"
 #include "hardware/i2c.h"
 #include "inc/bitmaps.h"
-#include "inc/buzzer.h"
-#include "inc/pwm_led.h"
 #include "inc/ssd1306.h"
 #include "pico/binary_info.h"
 #include "pico/stdlib.h"
@@ -67,10 +67,10 @@ int main() {
   sleep_ms(1000);
   ssd1306_draw_bitmap(&ssd_bm, menu_option_third);
   sleep_ms(1000);
-  // run_pwm_led();
-  // sleep_ms(1000);
-  run_buzzer();
+  run_pwm_led();
   sleep_ms(1000);
+  // run_buzzer();
+  // sleep_ms(1000);
 
   while (true) {
     sleep_ms(500);
