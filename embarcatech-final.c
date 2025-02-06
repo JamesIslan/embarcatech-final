@@ -1,4 +1,5 @@
 #include "apps/buzzer.h"
+#include "apps/joystick_led.h"
 #include "apps/pwm_led.h"
 #include "hardware/i2c.h"
 #include "inc/bitmaps.h"
@@ -65,9 +66,10 @@ int main() {
   sleep_ms(1000);
   // // run_pwm_led();
   // sleep_ms(1000);
-  run_buzzer();
+  // run_buzzer();
+  // sleep_ms(1000);
+  run_joystick_led();
   sleep_ms(1000);
-
   while (true) {
     sleep_ms(500);
   }

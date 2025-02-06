@@ -3,11 +3,11 @@
 #include "pico/stdlib.h"
 #include <stdio.h>
 
-const uint LED = 12;            // Pino do LED conectado
-const uint16_t PERIOD = 2000;   // Período do PWM (valor máximo do contador)
-const float DIVIDER_PWM = 16.0; // Divisor fracional do clock para o PWM
-const uint16_t LED_STEP = 100;  // Passo de incremento/decremento para o duty cycle do LED
-uint16_t led_level = 100;       // Nível inicial do PWM (duty cycle)
+static const uint LED = 12;            // Pino do LED conectado
+static const uint16_t PERIOD = 2000;   // Período do PWM (valor máximo do contador)
+static const float DIVIDER_PWM = 16.0; // Divisor fracional do clock para o PWM
+static const uint16_t LED_STEP = 100;  // Passo de incremento/decremento para o duty cycle do LED
+uint16_t led_level = 100;              // Nível inicial do PWM (duty cycle)
 
 void setup_pwm() {
   uint slice;

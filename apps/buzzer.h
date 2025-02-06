@@ -1,4 +1,3 @@
-// #include "hardware/clocks.h"
 #include "hardware/pwm.h"
 #include "pico/stdlib.h"
 #include <stdio.h>
