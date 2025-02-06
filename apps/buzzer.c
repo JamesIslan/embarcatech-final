@@ -4,9 +4,6 @@
 #include "pico/stdlib.h"
 #include <stdio.h>
 
-// Configuração do pino do buzzer
-#define BUZZER_PIN 21
-
 // Notas musicais para a música tema de Star Wars
 const uint star_wars_notes[] = {
   330, 330, 330, 262, 392, 523, 330, 262,
