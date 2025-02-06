@@ -55,6 +55,7 @@
         "ssd1306.h": "c",
         "ssd1306_i2c.h": "c",
         "ctype.h": "c",
-        "pwm_led.h": "c"
+        "pwm_led.h": "c",
+        "pwm.h": "c"
     }
 }
