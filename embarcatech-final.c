@@ -1,5 +1,6 @@
 #include "hardware/i2c.h"
 #include "inc/bitmaps.h"
+#include "inc/pwm_led.h"
 #include "inc/ssd1306.h"
 #include "pico/binary_info.h"
 #include "pico/stdlib.h"
@@ -7,6 +8,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+
 #define LED_R_PIN 13
 #define LED_G_PIN 11
 #define LED_B_PIN 12
@@ -64,6 +66,7 @@ int main() {
   sleep_ms(1000);
   ssd1306_draw_bitmap(&ssd_bm, menu_option_third);
   sleep_ms(1000);
+  run_pwm_led();
 
   while (true) {
     sleep_ms(500);

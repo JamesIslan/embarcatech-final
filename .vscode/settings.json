@@ -51,6 +51,10 @@
         "i2c.h": "c",
         "stdio.h": "c",
         "stdlib.h": "c",
-        "binary_info.h": "c"
+        "binary_info.h": "c",
+        "ssd1306.h": "c",
+        "ssd1306_i2c.h": "c",
+        "ctype.h": "c",
+        "pwm_led.h": "c"
     }
 }
