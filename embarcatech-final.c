@@ -64,7 +64,7 @@ int main() {
   sleep_ms(1000);
   ssd1306_draw_bitmap(&ssd_bm, menu_option_third);
   sleep_ms(1000);
-  // // run_pwm_led();
+  // run_pwm_led();
   // sleep_ms(1000);
   // run_buzzer();
   // sleep_ms(1000);

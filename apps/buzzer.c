@@ -4,106 +4,6 @@
 #include "pico/stdlib.h"
 #include <stdio.h>
 
-// Notas musicais para a música tema de Star Wars
-const uint star_wars_notes[] = {
-  330, 330, 330, 262, 392, 523, 330, 262,
-  392, 523, 330, 659, 659, 659, 698, 523,
-  415, 349, 330, 262, 392, 523, 330, 262,
-  392, 523, 330, 659, 659, 659, 698, 523,
-  415, 349, 330, 523, 494, 440, 392, 330,
-  659, 784, 659, 523, 494, 440, 392, 330,
-  659, 659, 330, 784, 880, 698, 784, 659,
-  523, 494, 440, 392, 659, 784, 659, 523,
-  494, 440, 392, 330, 659, 523, 659, 262,
-  330, 294, 247, 262, 220, 262, 330, 262,
-  330, 294, 247, 262, 330, 392, 523, 440,
-  349, 330, 659, 784, 659, 523, 494, 440,
-  392, 659, 784, 659, 523, 494, 440, 392};
-
-// Duração das notas em milissegundos
-const uint note_duration[] = {
-  500,
-  500,
-  500,
-  350,
-  150,
-  300,
-  500,
-  350,
-  150,
-  300,
-  500,
-  500,
-  500,
-  500,
-  350,
-  150,
-  300,
-  500,
-  500,
-  350,
-  150,
-  300,
-  500,
-  350,
-  150,
-  300,
-  650,
-  500,
-  150,
-  300,
-  500,
-  350,
-  150,
-  300,
-  500,
-  150,
-  300,
-  500,
-  350,
-  150,
-  300,
-  650,
-  500,
-  350,
-  150,
-  300,
-  500,
-  350,
-  150,
-  300,
-  500,
-  500,
-  500,
-  500,
-  350,
-  150,
-  300,
-  500,
-  500,
-  350,
-  150,
-  300,
-  500,
-  350,
-  150,
-  300,
-  500,
-  350,
-  150,
-  300,
-  500,
-  500,
-  350,
-  150,
-  300,
-  500,
-  500,
-  350,
-  150,
-  300,
-};
-
 // Inicializa o PWM no pino do buzzer
 void pwm_init_buzzer(uint pin) {
   gpio_set_function(pin, GPIO_FUNC_PWM);
@@ -131,11 +31,11 @@ void play_tone(uint pin, uint frequency, uint duration_ms) {
 
 // Função principal para tocar a música
 void play_star_wars(uint pin) {
-  for (int i = 0; i < sizeof(star_wars_notes) / sizeof(star_wars_notes[0]); i++) {
-    if (star_wars_notes[i] == 0) {
+  for (int i = 0; i < sizeof(buzzer_notes) / sizeof(buzzer_notes[0]); i++) {
+    if (buzzer_notes[i] == 0) {
       sleep_ms(note_duration[i]);
     } else {
-      play_tone(pin, star_wars_notes[i], note_duration[i]);
+      play_tone(pin, buzzer_notes[i], note_duration[i]);
     }
   }
 }
