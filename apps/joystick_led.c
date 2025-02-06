@@ -11,8 +11,8 @@ static const int ADC_CHANNEL_0 = 0; // Canal ADC para o eixo X do joystick
 static const int ADC_CHANNEL_1 = 1; // Canal ADC para o eixo Y do joystick
 static const int SW = 22;           // Pino de leitura do botão do joystick
 
-static const int LED_B = 13;             // Pino para controle do LED azul via PWM
-static const int LED_R = 11;             // Pino para controle do LED vermelho via PWM
+static const int LED_B = 12;             // Pino para controle do LED azul via PWM
+static const int LED_R = 13;             // Pino para controle do LED vermelho via PWM
 static const float PWM_DIVIDER = 16.0;   // Divisor fracional do clock para o PWM
 static const uint16_t PERIOD = 4096;     // Período do PWM (valor máximo do contador)
 uint16_t led_b_level, led_r_level = 100; // Inicialização dos níveis de PWM para os LEDs
