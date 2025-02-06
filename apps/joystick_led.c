@@ -3,8 +3,8 @@
 #include "pico/stdlib.h"
 #include <stdio.h>
 
-uint16_t led_b_level, led_r_level = 100; // Default PWM levels for LEDs
-uint slice_led_b, slice_led_r;           // Variáveis para armazenar os slices de PWM correspondentes aos LEDs
+// uint16_t led_b_level, led_r_level = 100; // Default PWM levels for LEDs
+uint slice_led_b, slice_led_r; // Variáveis para armazenar os slices de PWM correspondentes aos LEDs
 
 void setup_joystick() {
   adc_init();
@@ -16,43 +16,37 @@ void setup_joystick() {
   gpio_pull_up(SW_PIN);          // Activate pull up on joystick button to reduce bouncing
 }
 
-void setup_pwm_led(uint led_pin, uint *slice, uint16_t level) {
+void setup_pwm_led(uint led_pin, uint *slice) {
   gpio_set_function(led_pin, GPIO_FUNC_PWM); // Configura o pino do LED como saída PWM
   *slice = pwm_gpio_to_slice_num(led_pin);   // Obtém o slice do PWM associado ao pino do LED
-  pwm_set_clkdiv(*slice, PWM_DIVIDER);       // Define o divisor de clock do PWM
-  pwm_set_wrap(*slice, PERIOD);              // Configura o valor máximo do contador (período do PWM)
-  pwm_set_gpio_level(led_pin, level);        // Define o nível inicial do PWM para o LED
+  pwm_set_clkdiv(*slice, PWM_LED_DIVIDER);   // Define o divisor de clock do PWM
+  pwm_set_wrap(*slice, PWM_LED_PERIOD);      // Configura o valor máximo do contador (período do PWM)
   pwm_set_enabled(*slice, true);             // Habilita o PWM no slice correspondente ao LED
 }
 
-// Função de configuração geral
 void setup() {
-  stdio_init_all();                                // Inicializa a porta serial para saída de dados
-  setup_joystick();                                // Chama a função de configuração do joystick
-  setup_pwm_led(LED_B, &slice_led_b, led_b_level); // Configura o PWM para o LED azul
-  setup_pwm_led(LED_R, &slice_led_r, led_r_level); // Configura o PWM para o LED vermelho
+  stdio_init_all();
+  setup_joystick();
+  setup_pwm_led(LED_B, &slice_led_b); // Configura o PWM para o LED azul
+  setup_pwm_led(LED_R, &slice_led_r); // Configura o PWM para o LED vermelho
 }
 
-// Função para ler os valores dos eixos do joystick (X e Y)
-void joystick_read_axis(uint16_t *vrx_value, uint16_t *vry_value) {
-  // Leitura do valor do eixo X do joystick
-  adc_select_input(ADC_CHANNEL_VRX); // Seleciona o canal ADC para o eixo X
-  sleep_us(2);                       // Pequeno delay para estabilidade
-  *vrx_value = adc_read();           // Lê o valor do eixo X (0-4095)
+void read_joystick_axis(uint16_t *vrx_value, uint16_t *vry_value) {
+  adc_select_input(ADC_CHANNEL_VRX); // X axis
+  sleep_us(2);
+  *vrx_value = adc_read();
 
-  // Leitura do valor do eixo Y do joystick
-  adc_select_input(ADC_CHANNEL_VRY); // Seleciona o canal ADC para o eixo Y
-  sleep_us(2);                       // Pequeno delay para estabilidade
-  *vry_value = adc_read();           // Lê o valor do eixo Y (0-4095)
+  adc_select_input(ADC_CHANNEL_VRY); // Y axis
+  sleep_us(2);
+  *vry_value = adc_read();
 }
 
-// Função principal
 int run_joystick_led() {
-  uint16_t vrx_value, vry_value, sw_value; // Variáveis para armazenar os valores do joystick (eixos X e Y) e botão
-  setup();                                 // Chama a função de configuração
-  // Loop principal
-  while (1) {
-    joystick_read_axis(&vrx_value, &vry_value); // Lê os valores dos eixos do joystick
+  setup();
+  uint16_t vrx_value, vry_value, sw_value;
+
+  while (true) {
+    read_joystick_axis(&vrx_value, &vry_value); // Lê os valores dos eixos do joystick
     // Ajusta os níveis PWM dos LEDs de acordo com os valores do joystick
     pwm_set_gpio_level(LED_B, vrx_value); // Ajusta o brilho do LED azul com o valor do eixo X
     pwm_set_gpio_level(LED_R, vry_value); // Ajusta o brilho do LED vermelho com o valor do eixo Y

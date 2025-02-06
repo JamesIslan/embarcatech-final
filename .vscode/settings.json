@@ -56,6 +56,8 @@
         "ssd1306_i2c.h": "c",
         "ctype.h": "c",
         "pwm_led.h": "c",
-        "pwm.h": "c"
+        "pwm.h": "c",
+        "adc.h": "c",
+        "joystick_led.h": "c"
     }
 }
