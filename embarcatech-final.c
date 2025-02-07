@@ -67,16 +67,12 @@ int main() {
     ssd1306_draw_bitmap(&ssd_bm, display_options[index]);
     read_joystick_axis(&vrx_value, &vry_value);
     if (vrx_value >= 3000) {
-      index--;
+      index = ((index - 1) < 0) ? 2 : index - 1;
+      printf("%i", index);
     } else if (vrx_value <= 1000) {
-      index++;
+      index = ((index + 1) > 2) ? 0 : index + 1;
     } else {
       continue;
-    }
-    if (index > 2) {
-      index = 0;
-    } else if (index < 0) {
-      index = 2;
     }
     sleep_ms(500);
   }
