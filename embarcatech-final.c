@@ -5,6 +5,7 @@
 #include "inc/bitmaps.h"
 #include "inc/ssd1306.h"
 #include "pico/binary_info.h"
+#include "pico/multicore.h"
 #include "pico/stdlib.h"
 #include <ctype.h>
 #include <stdio.h>
@@ -35,6 +36,16 @@ void run_peripherals_setup() {
   ssd1306_init();
 }
 
+void press_button_handler() {
+  sleep_ms(2000);
+  while (true) {
+    if (gpio_get(SW_PIN) == 0) {
+      multicore_fifo_push_blocking(1);
+    }
+    sleep_ms(100);
+  }
+};
+
 int main() {
   run_peripherals_setup();
   setup_joystick();
@@ -62,9 +73,18 @@ int main() {
       index = (index == 0) ? 2 : --index;
     } else if (vrx_value <= 100) {
       index = (index == 2) ? 0 : ++index;
-    } else if (gpio_get(SW_PIN) == 0) {
-      do {
-        ssd1306_draw_bitmap(&ssd_bm, menu_option_back);
+    }
+    if (gpio_get(SW_PIN) == 0) {
+      multicore_launch_core1(press_button_handler);
+      ssd1306_draw_bitmap(&ssd_bm, menu_option_back);
+      while (true) {
+        uint32_t signal = multicore_fifo_pop_blocking();
+        if (signal == 1) {
+          multicore_reset_core1();
+          printf("%i", 1);
+          sleep_ms(100); // Remove
+          break;
+        }
         switch (index) {
         case 0:
           run_joystick_led();
@@ -74,7 +94,7 @@ int main() {
           run_pwm_led();
         }
         sleep_ms(50);
-      } while (gpio_get(SW_PIN) == 1);
+      }
     }
   }
 
