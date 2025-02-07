@@ -44,7 +44,7 @@ void reset_display(struct render_area frame_area) {
 int main() {
   run_peripherals_setup();
   setup_joystick();
-  uint16_t vrx_value, vry_value, sw_value;
+  uint16_t vrx_value, vry_value;
 
   struct render_area frame_area = {
     start_column : 0,
@@ -65,22 +65,21 @@ int main() {
   while (true) {
     ssd1306_draw_bitmap(&ssd_bm, display_options[index]);
     read_joystick_axis(&vrx_value, &vry_value);
-    if (vrx_value >= 3000) {
+    sleep_ms(50);
+    if (vrx_value >= 4000) {
       index = (index == 0) ? 2 : --index;
-    } else if (vrx_value <= 1000) {
+    } else if (vrx_value <= 100) {
       index = (index == 2) ? 0 : ++index;
-    } else {
-      continue;
+    } else if (gpio_get(SW_PIN) == 0) {
+      switch (index) {
+      case 0:
+        run_joystick_led();
+      case 1:
+        run_buzzer();
+      case 2:
+        run_pwm_led();
+      }
     }
-    sleep_ms(500);
-    int valor_pino = gpio_get(SW_PIN);
-    printf("%i", valor_pino);
-  }
-
-  run_joystick_led();
-  sleep_ms(1000);
-  while (true) {
-    sleep_ms(500);
   }
 
   return 0;
