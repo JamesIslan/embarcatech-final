@@ -73,6 +73,8 @@ int main() {
       continue;
     }
     sleep_ms(500);
+    int valor_pino = gpio_get(SW_PIN);
+    printf("%i", valor_pino);
   }
 
   run_joystick_led();
