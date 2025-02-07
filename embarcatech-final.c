@@ -63,14 +63,15 @@ int main() {
     } else if (vrx_value <= 100) {
       index = (index == 2) ? 0 : ++index;
     } else if (gpio_get(SW_PIN) == 0) {
-      switch (index) {
-      case 0:
-        run_joystick_led();
-      case 1:
-        run_buzzer();
-      case 2:
-        run_pwm_led();
-      }
+      // switch (index) {
+      // case 0:
+      //   run_joystick_led();
+      // case 1:
+      //   run_buzzer();
+      // case 2:
+      //   run_pwm_led();
+      // }
+      run_buzzer();
     }
   }
 

@@ -119,7 +119,7 @@ static const int buzzer_notes[] = {
   NOTE_C5, NOTE_A4, NOTE_B4, NOTE_G4, NOTE_A4, NOTE_G4, NOTE_E4, NOTE_G4,
   NOTE_G4, REST};
 
-static const int note_durations[] = {
+static const int buzzer_note_durations[] = {
   8, 8, 4, 4, 4, 4,
   4, 2, 8, 8,
   4, 4, 4, 4,
@@ -141,7 +141,6 @@ static const int note_durations[] = {
   8, 8, 8, 8, 8, 8, 8, 8,
   -2, 4};
 
-extern void pwm_init_buzzer(uint pin);
+extern void init_pwm_buzzer(uint pin);
 extern void play_tone(uint pin, uint frequency, uint duration_ms);
-extern void play_star_wars(uint pin);
 extern int run_buzzer();
