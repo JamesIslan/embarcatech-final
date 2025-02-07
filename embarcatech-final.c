@@ -63,17 +63,22 @@ int main() {
     } else if (vrx_value <= 100) {
       index = (index == 2) ? 0 : ++index;
     } else if (gpio_get(SW_PIN) == 0) {
-      // switch (index) {
-      // case 0:
-      //   run_joystick_led();
-      // case 1:
-      //   run_buzzer();
-      // case 2:
-      //   run_pwm_led();
-      // }
-      run_buzzer();
+      do {
+        ssd1306_draw_bitmap(&ssd_bm, menu_option_back);
+        switch (index) {
+        case 0:
+          run_joystick_led();
+        case 1:
+          run_buzzer();
+        case 2:
+          run_pwm_led();
+        }
+        sleep_ms(50);
+      } while (gpio_get(SW_PIN) == 1);
     }
   }
 
   return 0;
 }
+
+// 0 pressionado, 1 livre
