@@ -61,15 +61,14 @@ int main() {
   ssd1306_init_bm(&ssd_bm, 128, 64, false, 0x3C, i2c1);
   ssd1306_config(&ssd_bm);
 
-  uint8_t *display_now = display_options[0];
   int index = 0;
   while (true) {
     ssd1306_draw_bitmap(&ssd_bm, display_options[index]);
     read_joystick_axis(&vrx_value, &vry_value);
     if (vrx_value >= 3000) {
-      index = ((index - 1) < 0) ? 2 : index - 1;
+      index = (index == 0) ? 2 : --index;
     } else if (vrx_value <= 1000) {
-      index = ((index + 1) > 2) ? 0 : index + 1;
+      index = (index == 2) ? 0 : ++index;
     } else {
       continue;
     }
