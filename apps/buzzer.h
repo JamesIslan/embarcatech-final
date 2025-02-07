@@ -140,7 +140,4 @@ static const int buzzer_note_durations[] = {
   4, 8, 8, 8, 8, 8, 8,
   8, 8, 8, 8, 8, 8, 8, 8,
   -2, 4};
-
-extern void init_pwm_buzzer(uint pin);
-extern void play_tone(uint pin, uint frequency, uint duration_ms);
 extern int run_buzzer();
