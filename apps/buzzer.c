@@ -55,7 +55,7 @@ int get_max_freq(const int notes[], uint array_count) {
 
 uint map_frequency(uint frequency, uint min_freq, uint max_freq) {
   uint new_min_freq = 2000;
-  uint new_max_freq = 6000;
+  uint new_max_freq = 5000;
   return ((frequency - min_freq) * (new_max_freq - new_min_freq)) / (max_freq - min_freq) + new_min_freq;
 }
 
