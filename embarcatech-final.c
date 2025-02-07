@@ -68,7 +68,6 @@ int main() {
     read_joystick_axis(&vrx_value, &vry_value);
     if (vrx_value >= 3000) {
       index = ((index - 1) < 0) ? 2 : index - 1;
-      printf("%i", index);
     } else if (vrx_value <= 1000) {
       index = ((index + 1) > 2) ? 0 : index + 1;
     } else {
