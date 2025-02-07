@@ -18,7 +18,7 @@ void pwm_init_buzzer(uint pin) {
 void play_tone(uint pin, uint frequency, uint duration_ms) {
   uint slice_num = pwm_gpio_to_slice_num(pin);
   uint32_t clock_freq = clock_get_hz(clk_sys);
-  uint32_t top = clock_freq / frequency - 1;
+  uint32_t top = clock_freq / frequency - 2;
 
   pwm_set_wrap(slice_num, top);
   pwm_set_gpio_level(pin, top / 2); // 50% de duty cycle
@@ -33,9 +33,9 @@ void play_tone(uint pin, uint frequency, uint duration_ms) {
 void play_star_wars(uint pin) {
   for (int i = 0; i < sizeof(buzzer_notes) / sizeof(buzzer_notes[0]); i++) {
     if (buzzer_notes[i] == 0) {
-      sleep_ms(note_duration[i]);
+      sleep_ms(note_durations[i]);
     } else {
-      play_tone(pin, buzzer_notes[i], note_duration[i]);
+      play_tone(pin, buzzer_notes[i], note_durations[i]);
     }
   }
 }
