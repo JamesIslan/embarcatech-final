@@ -61,39 +61,26 @@ int main() {
   ssd1306_init_bm(&ssd_bm, 128, 64, false, 0x3C, i2c1);
   ssd1306_config(&ssd_bm);
 
-  // uint8_t *display_now = display_options[0];
-  int counter = 0;
+  uint8_t *display_now = display_options[0];
+  int index = 0;
   while (true) {
+    ssd1306_draw_bitmap(&ssd_bm, display_options[index]);
     read_joystick_axis(&vrx_value, &vry_value);
-    if ((counter + 1) % 3 == 0) {
-      ssd1306_draw_bitmap(&ssd_bm, display_options[2]);
-    } else if ((counter + 1) % 2 == 0) {
-      ssd1306_draw_bitmap(&ssd_bm, display_options[1]);
-    } else {
-      ssd1306_draw_bitmap(&ssd_bm, display_options[0]);
-    }
-    printf("%i\n", vrx_value);
-    // sleep_ms(2000);
     if (vrx_value >= 3000) {
-      counter--;
+      index--;
     } else if (vrx_value <= 1000) {
-      counter++;
+      index++;
     } else {
       continue;
+    }
+    if (index > 2) {
+      index = 0;
+    } else if (index < 0) {
+      index = 2;
     }
     sleep_ms(500);
   }
 
-  // ssd1306_draw_bitmap(&ssd_bm, menu_option_first);
-  // sleep_ms(1000);
-  // ssd1306_draw_bitmap(&ssd_bm, menu_option_second);
-  // sleep_ms(1000);
-  // ssd1306_draw_bitmap(&ssd_bm, menu_option_third);
-  // sleep_ms(1000);
-  // run_pwm_led();
-  // sleep_ms(1000);
-  // run_buzzer();
-  // sleep_ms(1000);
   run_joystick_led();
   sleep_ms(1000);
   while (true) {
