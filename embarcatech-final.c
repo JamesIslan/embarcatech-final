@@ -57,26 +57,25 @@ int main() {
   int index = 0;
   while (true) {
     ssd1306_draw_bitmap(&ssd_bm, display_options[index]);
+    if (gpio_get(SW_PIN) == 0) {
+      ssd1306_draw_bitmap(&ssd_bm, menu_option_back);
+      switch (index) {
+      case 0:
+        run_joystick_led();
+      case 1:
+        run_buzzer();
+      case 2:
+        run_pwm_led();
+      }
+      index = 0;
+      sleep_ms(50);
+    }
     read_joystick_axis(&vrx_value, &vry_value);
     sleep_ms(50);
     if (vrx_value >= 4000) {
       index = (index == 0) ? 2 : --index;
     } else if (vrx_value <= 100) {
       index = (index == 2) ? 0 : ++index;
-    }
-    if (gpio_get(SW_PIN) == 0) {
-      ssd1306_draw_bitmap(&ssd_bm, menu_option_back);
-      while (true) {
-        switch (index) {
-        case 0:
-          run_joystick_led();
-        case 1:
-          run_buzzer();
-        case 2:
-          run_pwm_led();
-        }
-        sleep_ms(50);
-      }
     }
   }
 
