@@ -6,16 +6,6 @@
 // uint16_t led_b_level, led_r_level = 100; // Default PWM levels for LEDs
 uint slice_led_b, slice_led_r; // Variáveis para armazenar os slices de PWM correspondentes aos LEDs
 
-void setup_joystick() {
-  adc_init();
-  adc_gpio_init(VRX_PIN); // Set VRX_PIN to ADC input
-  adc_gpio_init(VRY_PIN); // Set VRY_PIN to ADC input
-
-  gpio_init(SW_PIN);             // Initialize joystick button pin
-  gpio_set_dir(SW_PIN, GPIO_IN); // Set joystick button pin as input
-  gpio_pull_up(SW_PIN);          // Activate pull up on joystick button to reduce bouncing
-}
-
 void setup_pwm_led(uint led_pin, uint *slice) {
   gpio_set_function(led_pin, GPIO_FUNC_PWM); // Configura o pino do LED como saída PWM
   *slice = pwm_gpio_to_slice_num(led_pin);   // Obtém o slice do PWM associado ao pino do LED
@@ -25,7 +15,7 @@ void setup_pwm_led(uint led_pin, uint *slice) {
 }
 
 void setup() {
-  setup_joystick();
+  // setup_joystick();
   setup_pwm_led(LED_B, &slice_led_b); // Configura o PWM para o LED azul
   setup_pwm_led(LED_R, &slice_led_r); // Configura o PWM para o LED vermelho
 }

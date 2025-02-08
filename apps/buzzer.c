@@ -1,11 +1,12 @@
 #include "buzzer.h"
 #include "hardware/clocks.h"
 #include "hardware/pwm.h"
+#include "joystick_led.h"
 #include "pico/stdlib.h"
 #include <stdio.h>
 #include <stdlib.h>
-
 uint duty_divider = 16; // Increase to low volume
+// const uint8_t SW_PIN = 22;
 const uint TIME = 100;
 const uint WHOLE_NOTE = 60000 * 4 / TIME;
 
@@ -23,18 +24,24 @@ void init_pwm_buzzer(uint pin) {
 }
 
 // Play a note with a certain frequency and duration value
-void play_tone(uint pin, uint frequency, uint duration_ms) {
+int play_tone(uint pin, uint frequency, uint duration_ms) {
   uint slice_num = pwm_gpio_to_slice_num(pin);
   uint32_t clock_freq = clock_get_hz(clk_sys);
   uint32_t duty_max = clock_freq / frequency - 2;
 
   pwm_set_wrap(slice_num, duty_max);
   pwm_set_gpio_level(pin, duty_max / duty_divider);
-
-  sleep_ms(duration_ms);
+  for (int i = 0; i < duration_ms; i++) {
+    if (gpio_get(SW_PIN) == 1) {
+      sleep_ms(1);
+    } else {
+      return 0;
+    }
+  }
 
   pwm_set_gpio_level(pin, 0);
   sleep_ms(50);
+  return 1;
 }
 
 int get_min_freq(const int notes[], uint array_count) {
@@ -71,27 +78,27 @@ void map_notes() {
   }
 }
 
-void play_song(uint pin, uint buzzer_notes[], const int buzzer_note_durations[], size_t note_count) {
-  for (int i = 0; i < note_count; i++) {
-    uint note = buzzer_notes[i];
-    uint note_duration = WHOLE_NOTE / abs(buzzer_note_durations[i]);
-    if (buzzer_note_durations[i] < 0) {
-      note_duration *= 1.5;
-    }
-    if (buzzer_notes[i] == 0) {
-      sleep_ms(note_duration);
-    } else {
-      play_tone(pin, note, note_duration);
-    }
-  }
-}
-
 int run_buzzer() {
-  stdio_init_all();
   init_pwm_buzzer(BUZZER_PIN);
   map_notes();
-  while (true) {
-    play_song(BUZZER_PIN, notes_mapped, buzzer_note_durations, note_count);
+  int continue_playing = 1;
+  while (continue_playing) {
+    for (int i = 0; i < note_count; i++) {
+      uint note = notes_mapped[i];
+      uint note_duration = WHOLE_NOTE / abs(buzzer_note_durations[i]);
+      if (buzzer_note_durations[i] < 0) {
+        note_duration *= 1.5;
+      }
+      if (notes_mapped[i] == 0) {
+        sleep_ms(note_duration);
+      } else {
+        continue_playing = play_tone(BUZZER_PIN, note, note_duration);
+        if (!continue_playing) {
+          pwm_set_gpio_level(BUZZER_PIN, 0);
+          break;
+        }
+      }
+    }
   }
   return 0;
 }

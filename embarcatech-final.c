@@ -1,6 +1,7 @@
 #include "apps/buzzer.h"
 #include "apps/joystick_led.h"
 #include "apps/pwm_led.h"
+#include "hardware/adc.h"
 #include "hardware/i2c.h"
 #include "inc/bitmaps.h"
 #include "inc/ssd1306.h"
@@ -34,6 +35,16 @@ void run_peripherals_setup() {
   gpio_pull_up(I2C_SDA);
   gpio_pull_up(I2C_SCL);
   ssd1306_init();
+}
+
+void setup_joystick() {
+  adc_init();
+  adc_gpio_init(VRX_PIN); // Set VRX_PIN to ADC input
+  adc_gpio_init(VRY_PIN); // Set VRY_PIN to ADC input
+
+  gpio_init(SW_PIN);             // Initialize joystick button pin
+  gpio_set_dir(SW_PIN, GPIO_IN); // Set joystick button pin as input
+  gpio_pull_up(SW_PIN);          // Activate pull up on joystick button to reduce bouncing
 }
 
 int main() {
