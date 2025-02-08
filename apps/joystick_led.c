@@ -46,12 +46,9 @@ int run_joystick_led() {
   uint16_t vrx_value, vry_value, sw_value;
 
   while (true) {
-    read_joystick_axis(&vrx_value, &vry_value); // Lê os valores dos eixos do joystick
-    // Ajusta os níveis PWM dos LEDs de acordo com os valores do joystick
-    pwm_set_gpio_level(LED_B, vrx_value); // Ajusta o brilho do LED azul com o valor do eixo X
-    pwm_set_gpio_level(LED_R, vry_value); // Ajusta o brilho do LED vermelho com o valor do eixo Y
-
-    // Pequeno delay antes da próxima leitura
-    sleep_ms(100); // Espera 100 ms antes de repetir o ciclo
+    read_joystick_axis(&vrx_value, &vry_value);
+    pwm_set_gpio_level(LED_B, vrx_value);
+    pwm_set_gpio_level(LED_R, vry_value);
+    sleep_ms(100);
   }
 }

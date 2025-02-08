@@ -65,16 +65,8 @@ int main() {
       index = (index == 2) ? 0 : ++index;
     }
     if (gpio_get(SW_PIN) == 0) {
-      // multicore_launch_core1(press_button_handler);
       ssd1306_draw_bitmap(&ssd_bm, menu_option_back);
       while (true) {
-        // uint32_t signal = multicore_fifo_pop_blocking();
-        // if (signal == 1) {
-        //   multicore_reset_core1();
-        //   printf("%i", 1);
-        //   sleep_ms(100); // Remove
-        //   break;
-        // }
         switch (index) {
         case 0:
           run_joystick_led();
@@ -90,5 +82,3 @@ int main() {
 
   return 0;
 }
-
-// 0 pressionado, 1 livre
