@@ -65,7 +65,6 @@ target_link_libraries(embarcatech-final
         hardware_i2c
         hardware_pio
         hardware_pwm
-        pico_multicore
         )
 
 pico_add_extra_outputs(embarcatech-final)

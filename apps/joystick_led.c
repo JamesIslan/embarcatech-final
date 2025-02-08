@@ -25,7 +25,6 @@ void setup_pwm_led(uint led_pin, uint *slice) {
 }
 
 void setup() {
-  stdio_init_all();
   setup_joystick();
   setup_pwm_led(LED_B, &slice_led_b); // Configura o PWM para o LED azul
   setup_pwm_led(LED_R, &slice_led_r); // Configura o PWM para o LED vermelho
@@ -43,12 +42,16 @@ void read_joystick_axis(uint16_t *vrx_value, uint16_t *vry_value) {
 
 int run_joystick_led() {
   setup();
-  uint16_t vrx_value, vry_value, sw_value;
-
+  uint16_t vrx_value, vry_value;
   while (true) {
-    read_joystick_axis(&vrx_value, &vry_value);
-    pwm_set_gpio_level(LED_B, vrx_value);
-    pwm_set_gpio_level(LED_R, vry_value);
-    sleep_ms(100);
+    if (gpio_get(SW_PIN) == 1) {
+      read_joystick_axis(&vrx_value, &vry_value);
+      pwm_set_gpio_level(LED_B, vrx_value);
+      pwm_set_gpio_level(LED_R, vry_value);
+    } else {
+      pwm_set_gpio_level(LED_R, 0);
+      pwm_set_gpio_level(LED_B, 0);
+      break;
+    }
   }
 }
