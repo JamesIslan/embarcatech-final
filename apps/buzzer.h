@@ -2,7 +2,6 @@
 #include "pico/stdlib.h"
 #include <stdio.h>
 
-// Configuração do pino do buzzer
 #define BUZZER_PIN 21
 #define NOTE_B0 31
 #define NOTE_C1 33

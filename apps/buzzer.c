@@ -6,7 +6,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 uint duty_divider = 20; // Increase to low volume
-// const uint8_t SW_PIN = 22;
 const uint TIME = 100;
 const uint WHOLE_NOTE = 60000 * 4 / TIME;
 

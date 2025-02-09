@@ -3,7 +3,6 @@
 #include "pico/stdlib.h"
 #include <stdio.h>
 
-// uint16_t led_b_level, led_r_level = 100; // Default PWM levels for LEDs
 uint slice_led_b, slice_led_r; // Variáveis para armazenar os slices de PWM correspondentes aos LEDs
 
 void setup_pwm_led(uint led_pin, uint *slice) {
@@ -15,7 +14,6 @@ void setup_pwm_led(uint led_pin, uint *slice) {
 }
 
 void setup() {
-  // setup_joystick();
   setup_pwm_led(LED_B, &slice_led_b); // Configura o PWM para o LED azul
   setup_pwm_led(LED_R, &slice_led_r); // Configura o PWM para o LED vermelho
 }

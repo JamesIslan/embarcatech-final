@@ -17,8 +17,7 @@ void setup_pwm() {
 
 int run_pwm_led() {
   uint up_down = 1; // Variável para controlar se o nível do LED aumenta ou diminui
-  // stdio_init_all(); // Inicializa o sistema padrão de I/O
-  setup_pwm(); // Configura o PWM
+  setup_pwm();      // Configura o PWM
   while (true) {
     if (gpio_get(SW_PIN) == 1) {
       pwm_set_gpio_level(LED, led_level); // Define o nível atual do PWM (duty cycle)
