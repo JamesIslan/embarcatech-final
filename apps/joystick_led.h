@@ -16,4 +16,4 @@ static const float PWM_LED_DIVIDER = 16.0;
 static const uint16_t PWM_LED_PERIOD = 4096; // Period in milisseconds
 
 extern void read_joystick_axis(uint16_t *vrx_value, uint16_t *vry_value);
-extern int run_joystick_led();
+extern void run_joystick_led();
