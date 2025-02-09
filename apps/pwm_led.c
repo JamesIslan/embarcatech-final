@@ -5,7 +5,7 @@
 #include <stdio.h>
 
 const uint8_t LED_PULSE_SPEED = 50; // The higher the number, the lower the speed
-uint16_t LED_START_LEVEL = 100;     // Nível inicial do PWM (duty cycle)
+uint16_t LED_START_LEVEL = 100;
 
 // Configures the PWM function on the LED pin
 void setup_pwm() {
