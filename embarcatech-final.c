@@ -5,13 +5,9 @@
 #include "hardware/i2c.h"
 #include "inc/bitmaps.h"
 #include "inc/ssd1306.h"
-#include "pico/binary_info.h"
-#include "pico/multicore.h"
 #include "pico/stdlib.h"
-#include <ctype.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
 
 #define I2C_SDA 14
 #define I2C_SCL 15
@@ -69,7 +65,7 @@ int main() {
   while (true) {
     ssd1306_draw_bitmap(&ssd_bm, display_options[index]);
     if (gpio_get(SW_PIN) == 0) { // Button pressed?
-      sleep_ms(300);
+      sleep_ms(200);
       ssd1306_draw_bitmap(&ssd_bm, menu_option_back);
       if (index == 0) {
         run_joystick_led();
@@ -79,10 +75,16 @@ int main() {
         run_pwm_led();
       }
       index = 0;
-      sleep_ms(300);
+      sleep_ms(200);
     }
     sleep_ms(100);
     read_joystick_axis(&vrx_value, &vry_value);
+    // OBS: NESTA ATIVIDADE, FOI USADO COMO REFERÊNCIA DE
+    // MOVIMENTO DO JOYSTICK O EIXO "X", AO INVÉS DO EIXO "Y".
+    // ISSO SE DEU PELO FATO DE O ANALÓGICO ESTAR EM UMA
+    // POSIÇÃO INVERTIDA EM RELAÇÃO AO NORTE DA PLACA.
+    // SENDO ASSIM, OPTEI POR REALIZAR ESSA TROCA PARA
+    // DEIXAR A UTILIZAÇÃO DO PROGRAMA MAIS FLUIDO E INTUITIVO.
     if (vrx_value >= 4000) { // Joystick up?
       index = (index == 0) ? 2 : --index;
     } else if (vrx_value <= 100) { // Joystick down?

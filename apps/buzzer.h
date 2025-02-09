@@ -139,4 +139,4 @@ static const int buzzer_note_durations[] = {
   4, 8, 8, 8, 8, 8, 8,
   8, 8, 8, 8, 8, 8, 8, 8,
   -2, 4};
-extern int run_buzzer();
+extern void run_buzzer();

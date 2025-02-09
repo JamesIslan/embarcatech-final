@@ -77,7 +77,7 @@ void map_notes() {
   }
 }
 
-int run_buzzer() {
+void run_buzzer() {
   init_pwm_buzzer(BUZZER_PIN);
   map_notes();
   int continue_playing = 1;
@@ -99,5 +99,4 @@ int run_buzzer() {
       }
     }
   }
-  return 0;
 }
