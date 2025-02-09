@@ -5,7 +5,7 @@
 #include "pico/stdlib.h"
 #include <stdio.h>
 #include <stdlib.h>
-uint duty_divider = 16; // Increase to low volume
+uint duty_divider = 20; // Increase to low volume
 // const uint8_t SW_PIN = 22;
 const uint TIME = 100;
 const uint WHOLE_NOTE = 60000 * 4 / TIME;
@@ -62,7 +62,7 @@ int get_max_freq(const int notes[], uint array_count) {
 
 uint map_frequency(uint frequency, uint min_freq, uint max_freq) {
   uint new_min_freq = 2000;
-  uint new_max_freq = 5000;
+  uint new_max_freq = 4000;
   return ((frequency - min_freq) * (new_max_freq - new_min_freq)) / (max_freq - min_freq) + new_min_freq;
 }
 
